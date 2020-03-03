@@ -1,6 +1,6 @@
 # Custom Policy Provider Demo 
 
-This repo is a part of the ASP.NET Core: Custom Authorization Policies With Multiple Requirements article published at &lt;url>
+This repo is a part of the ASP.NET Core: Custom Authorization Policies With Multiple Requirements article published at https://link.medium.com/FBlQWWfQy4
 
 ## Running The Demo Application
 
