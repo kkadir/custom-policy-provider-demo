@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29709.97
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomPolicyProvidersDemo", "CustomPolicyProvidersDemo.csproj", "{3A943531-E1E9-44EF-9663-12F89F7DA138}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomPolicyProvidersDemo\CustomPolicyProvidersDemo", "CustomPolicyProvidersDemo\CustomPolicyProvidersDemo.csproj", "{3A943531-E1E9-44EF-9663-12F89F7DA138}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
