@@ -7,11 +7,11 @@ using Microsoft.Extensions.Logging;
 
 namespace CustomPolicyProvidersDemo.Authorization
 {
-    public class ScopesAuthorizationHandlers : AuthorizationHandler<ScopesRequirement>
+    public class ScopesAuthorizationHandler : AuthorizationHandler<ScopesRequirement>
     {
-        private readonly ILogger<ScopesAuthorizationHandlers> _logger;
+        private readonly ILogger<ScopesAuthorizationHandler> _logger;
 
-        public ScopesAuthorizationHandlers(ILogger<ScopesAuthorizationHandlers> logger)
+        public ScopesAuthorizationHandler(ILogger<ScopesAuthorizationHandler> logger)
         {
             _logger = logger;
         }
@@ -32,7 +32,7 @@ namespace CustomPolicyProvidersDemo.Authorization
 
             if (context.User.IsInRole("Super Admin"))
             {
-                context.Succeed(requirement);
+                Utility.Succeed(context, requirement.Identifier);
                 return Task.CompletedTask;
             }
 
@@ -65,7 +65,8 @@ namespace CustomPolicyProvidersDemo.Authorization
 
                 if (match.Any())
                 {
-                    context.Succeed(requirement);
+                    Utility.Succeed(context, requirement.Identifier);
+
                     break;
                 }
             }

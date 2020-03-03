@@ -33,7 +33,7 @@ namespace CustomPolicyProvidersDemo.Authorization
 
             if (context.User.IsInRole("Super Admin"))
             {
-                context.Succeed(requirement);
+                Utility.Succeed(context, requirement.Identifier);
                 return Task.CompletedTask;
             }
 
@@ -88,7 +88,7 @@ namespace CustomPolicyProvidersDemo.Authorization
 
                 if (match.Any())
                 {
-                    context.Succeed(requirement);
+                    Utility.Succeed(context, requirement.Identifier);
                     break;
                 }
             }

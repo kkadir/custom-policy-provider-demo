@@ -32,7 +32,7 @@ namespace CustomPolicyProvidersDemo.Authorization
 
             if (context.User.IsInRole("Super Admin"))
             {
-                context.Succeed(requirement);
+                Utility.Succeed(context, requirement.Identifier);
                 return Task.CompletedTask;
             }
 
@@ -56,7 +56,8 @@ namespace CustomPolicyProvidersDemo.Authorization
             }
 
             var userRoleClaims = context.User.Claims?.Where(c =>
-                string.Equals(c.Type, "role", StringComparison.OrdinalIgnoreCase));
+                string.Equals(c.Type, "role", StringComparison.OrdinalIgnoreCase)
+                || string.Equals(c.Type, ClaimTypes.Role, StringComparison.OrdinalIgnoreCase));
 
             foreach (var claim in userRoleClaims ?? Enumerable.Empty<Claim>())
             {
@@ -65,7 +66,7 @@ namespace CustomPolicyProvidersDemo.Authorization
 
                 if (match.Any())
                 {
-                    context.Succeed(requirement);
+                    Utility.Succeed(context, requirement.Identifier);
                     break;
                 }
             }

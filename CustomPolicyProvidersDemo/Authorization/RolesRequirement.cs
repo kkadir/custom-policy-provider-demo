@@ -1,14 +1,18 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CustomPolicyProvidersDemo.Authorization
 {
-    public class RolesRequirement : IAuthorizationRequirement
+    public class RolesRequirement : IAuthorizationRequirement, IIdentifiable
     {
-        public RolesRequirement(string roles)
+        public RolesRequirement(string roles, Guid identifier)
         {
             Roles = roles;
+            Identifier = identifier;
         }
 
         public string Roles { get; }
+
+        public Guid Identifier { get; set; }
     }
 }

@@ -10,6 +10,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Authorization;
+using CustomPolicyProvidersDemo.Authorization;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.IdentityModel.Logging;
 
 namespace CustomPolicyProvidersDemo
 {
@@ -24,13 +28,22 @@ namespace CustomPolicyProvidersDemo
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<IAuthorizationPolicyProvider, PermissionsPolicyProvider>();
+
+            services.AddSingleton<IAuthorizationHandler, PermissionsAuthorizationHandler>();
+            services.AddSingleton<IAuthorizationHandler, RolesAuthorizationHandler>();
+            services.AddSingleton<IAuthorizationHandler, ScopesAuthorizationHandler>();
+
             services.AddControllers();
+            services.AddAuthentication()
+                .AddScheme<AuthenticationSchemeOptions, MockAuthenticationHandler>("Bearer", null);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
+                IdentityModelEventSource.ShowPII = true;
                 app.UseDeveloperExceptionPage();
             }
 
@@ -38,6 +51,7 @@ namespace CustomPolicyProvidersDemo
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

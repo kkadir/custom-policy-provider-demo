@@ -37,6 +37,7 @@ namespace CustomPolicyProvidersDemo.Authorization
             }
 
             var policy = new AuthorizationPolicyBuilder("Bearer");
+            var identifier = Guid.NewGuid();
 
             foreach (var token in policyTokens)
             {
@@ -49,9 +50,9 @@ namespace CustomPolicyProvidersDemo.Authorization
 
                 IAuthorizationRequirement requirement = (pair[0]) switch
                 {
-                    PermissionsAttribute.PermissionsGroup => new PermissionsRequirement(pair[1]),
-                    PermissionsAttribute.RolesGroup => new RolesRequirement(pair[1]),
-                    PermissionsAttribute.ScopesGroup => new ScopesRequirement(pair[1]),
+                    PermissionsAttribute.PermissionsGroup => new PermissionsRequirement(pair[1], identifier),
+                    PermissionsAttribute.RolesGroup => new RolesRequirement(pair[1], identifier),
+                    PermissionsAttribute.ScopesGroup => new ScopesRequirement(pair[1], identifier),
                     _ => null,
                 };
 
